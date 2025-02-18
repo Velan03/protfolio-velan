@@ -249,12 +249,14 @@ body.dark-mode #theme-toggle i {
     padding: 2rem;
 }
 
-#home .apps-links {
+#home .apps-links { 
     display: flex;
     gap: 15px;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     padding: 10px;
+    width: 100%;
+
 }
 
 #home .apps-links a {
