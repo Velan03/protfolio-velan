@@ -260,7 +260,7 @@ body.dark-mode #theme-toggle i {
 }
 
 #home .apps-links a {
-    color: white;
+    color: var( --bg-color);
     font-size: 24px;
     transition: color 0.3s ease;
     text-decoration: none;
