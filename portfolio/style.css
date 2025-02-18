@@ -267,8 +267,7 @@ body.dark-mode #theme-toggle i {
     width: 80%;
 }
 
-#home .apps-links a {
-    color: var(--primary-color);
+#home .apps-links a { 
     font-size: 24px;
     transition: color 0.3s ease;
     text-decoration: none;
