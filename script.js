@@ -693,16 +693,15 @@ function setupContactForm() {
   const contactForm = document.getElementById("contactForm");
   if (!contactForm) return;
 
-  // Create success message element (add this to your HTML or create dynamically)
+  // Create and insert success message element (better placement)
   const successMessage = document.createElement('div');
   successMessage.className = 'alert alert-success mt-3 d-none';
   successMessage.innerHTML = '<i class="fas fa-check-circle me-2"></i> Message sent successfully!';
-  contactForm.appendChild(successMessage);
+  contactForm.insertAdjacentElement('afterend', successMessage); // Better placement after form
 
   contactForm.addEventListener("submit", async function(event) {
     event.preventDefault(); 
     
-    // Get form elements
     const submitButton = this.querySelector('button[type="submit"]');
     const submitButtonSpan = submitButton.querySelector('span');
     const originalButtonText = submitButtonSpan.textContent;
@@ -712,17 +711,20 @@ function setupContactForm() {
     submitButton.disabled = true;
     submitButtonSpan.textContent = 'Sending...';
     icon.className = 'fas fa-spinner fa-spin';
-    
-    // Hide any previous messages
     successMessage.classList.add('d-none');
 
     try { 
-      // Add custom subject to form data
       const formData = new FormData(contactForm);
-      const name = formData.get('name') || 'Visitor';
-      formData.set('subject', `Form Portfolio - Message from ${name}`);
       
-      // Submit to Web3Forms
+      // Ensure required fields are filled
+      if (!formData.get('name') || !formData.get('email') || !formData.get('message')) {
+        throw new Error('Please fill all required fields');
+      }
+
+      // Set email metadata
+      formData.set('subject', `Form Portfolio - Message from ${formData.get('name')}`);
+      formData.append('from_name', 'Portfolio Contact Form');
+      
       const response = await fetch(contactForm.action, {
         method: 'POST',
         body: formData
@@ -730,21 +732,41 @@ function setupContactForm() {
       
       const result = await response.json();
       
-      if (response.ok && result.success) { 
-        // Success - reset form and show message
-        contactForm.reset(); 
-        successMessage.classList.remove('d-none');
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          successMessage.classList.add('d-none');
-        }, 5000);
-      } else { 
+      if (!response.ok || !result.success) { 
         throw new Error(result.message || 'Failed to send message');
       }
+      
+      // Success handling
+      contactForm.reset(); 
+      successMessage.classList.remove('d-none');
+      
+      // Auto-hide success message
+      const successTimer = setTimeout(() => {
+        successMessage.classList.add('d-none');
+        clearTimeout(successTimer);
+      }, 5000);
+      
     } catch (error) { 
-      console.error('Form submission error:', error);
-      alert(`Error: ${error.message}`);
+      console.error('Form error:', error);
+      
+      // Create and show error message
+      const errorMessage = document.createElement('div');
+      errorMessage.className = 'alert alert-danger mt-3';
+      errorMessage.innerHTML = `<i class="fas fa-exclamation-circle me-2"></i> ${error.message}`;
+      
+      // Insert error message
+      const existingError = contactForm.nextElementSibling;
+      if (existingError && existingError.classList.contains('alert-danger')) {
+        existingError.replaceWith(errorMessage);
+      } else {
+        contactForm.insertAdjacentElement('afterend', errorMessage);
+      }
+      
+      // Auto-hide error message
+      setTimeout(() => {
+        errorMessage.remove();
+      }, 5000);
+      
     } finally { 
       // Reset button state
       submitButton.disabled = false;
