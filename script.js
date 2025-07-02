@@ -693,18 +693,49 @@ function setupContactForm() {
   const contactForm = document.getElementById("contactForm");
   if (!contactForm) return;
 
-  contactForm.addEventListener("submit", function(event) {
-    event.preventDefault(); 
+  contactForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    
+    // Show loading state
     const submitButton = this.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.innerHTML;
+    const submitButtonSpan = submitButton.querySelector('span');
+    const originalButtonText = submitButtonSpan.textContent;
     submitButton.disabled = true;
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-     
-    setTimeout(() => { 
-      contactForm.reset(); 
+    submitButtonSpan.textContent = 'Sending...';
+    const icon = submitButton.querySelector('i');
+    icon.className = 'fas fa-spinner fa-spin';
+    
+    try {
+      // Get form data
+      const formData = new FormData(contactForm);
+      
+      // Submit to Web3Forms
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        // Success - reset form and show message
+        contactForm.reset();
+        
+        // Show success message (you might want to use a nicer alert/toast)
+        alert('Message sent successfully!');
+      } else {
+        // Handle error
+        throw new Error(result.message || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error: ' + error.message);
+    } finally {
+      // Always restore button state
       submitButton.disabled = false;
-      submitButton.innerHTML = originalButtonText; 
-    }, 1000);
+      submitButtonSpan.textContent = originalButtonText;
+      icon.className = 'fa-regular fa-paper-plane';
+    }
   });
 }
 
