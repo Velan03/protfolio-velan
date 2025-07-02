@@ -689,30 +689,24 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Contact Form Submission
-  function setupContactForm() {
-    const contactForm = document.getElementById("contactForm");
-    if (!contactForm) return;
-  
-    contactForm.addEventListener("submit", function(event) {
-      // We don't prevent default here to allow the form to submit to FormSubmit
-      
-      // Show loading state
-      const submitButton = this.querySelector('button[type="submit"]');
-      const originalButtonText = submitButton.innerHTML;
-      submitButton.disabled = true;
-      submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-      
-      // We'll add a success message after form submission
-      // FormSubmit will handle the redirect, so we don't need to manually reset the form
-      
-      // This is just to show the loading state briefly before the form submits
-      setTimeout(() => {
-        // The form will naturally submit and redirect
-        // This timeout is just for UX to show the loading state
-      }, 1000);
-    });
-  }
+function setupContactForm() {
+  const contactForm = document.getElementById("contactForm");
+  if (!contactForm) return;
+
+  contactForm.addEventListener("submit", function(event) {
+    event.preventDefault(); 
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.innerHTML;
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+     
+    setTimeout(() => { 
+      contactForm.reset(); 
+      submitButton.disabled = false;
+      submitButton.innerHTML = originalButtonText; 
+    }, 1000);
+  });
+}
 
   // 🚀 Initialize All Features
   setupThemeToggle()
