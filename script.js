@@ -644,7 +644,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       startYear: 2024,
       endYear: currentYear,
-      title: "Software Engineer Trainee",
+      title: "Software Engineer",
       description: "Tarkiz Infotech Private Limited, Chennai-116, India",
     },
     { startYear: 2022, endYear: 2023, title: "Front-end Trainee", description: "Intrainz (Online), India" },
