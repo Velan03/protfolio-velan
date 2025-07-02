@@ -566,38 +566,20 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "Getting Started with JavaScript",
       description: "Learn the basics of JavaScript and how to use it in your projects.",
       image: "../img/blog-img/Best-Blogging-image.png",
-      link: "#",
+      link: "https://medium.com/@velansivasankaran15/getting-started-with-javascript-your-gateway-to-the-web-65cd82d325b6",
     },
     {
       title: "Mastering CSS Grid",
       description: "A comprehensive guide to mastering CSS Grid for modern web layouts.",
       image: "../img/blog-img/images2.jpg",
-      link: "#",
+      link: "https://medium.com/@velansivasankaran15/mastering-css-grid-the-future-of-modern-web-layouts-f974d3f1f1d7",
     },
     {
       title: "Introduction to React",
       description: "Discover the power of React and how to build dynamic user interfaces.",
       image: "../img/blog-img/img3.png",
-      link: "#",
-    },
-    {
-      title: "Getting Started with JavaScript",
-      description: "Learn the basics of JavaScript and how to use it in your projects.",
-      image: "../img/blog-img/Best-Blogging-image.png",
-      link: "#",
-    },
-    {
-      title: "Mastering CSS Grid",
-      description: "A comprehensive guide to mastering CSS Grid for modern web layouts.",
-      image: "../img/blog-img/images2.jpg",
-      link: "#",
-    },
-    {
-      title: "Introduction to React",
-      description: "Discover the power of React and how to build dynamic user interfaces.",
-      image: "../img/blog-img/img3.png",
-      link: "#",
-    },
+      link: "https://medium.com/@velansivasankaran15/%EF%B8%8F-introduction-to-react-build-dynamic-uis-like-a-pro-a61d74dab3fc",
+    }, 
   ]
 
   // Dynamically Insert Blog Cards with Animation
