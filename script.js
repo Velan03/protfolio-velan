@@ -462,8 +462,8 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "E-commerce Electronic WebSite",
       description:
         "An electronics e-commerce website that allows users to browse, compare, and purchase electronic items with ease.",
-      link: "https://electronics-web-site.vercel.app/",
-      github: "#",
+      link: "https://like-n-pick.vercel.app",
+      github: "https://github.com/Velan03/like-n-pick",
       image: "../img/project-img/e-COMMERS.jpg",
     },
     {
@@ -483,15 +483,15 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       title: "Event-Management",
       description: "🎉 Event Management Website This is a fully responsive Event Management Website built using HTML, CSS, and JavaScript. The website allows users to explore event services, view upcoming events, and contact organizers.", 
-       link: "event-management-sable-three.vercel.app",
-      github: "https://github.com/Velan03/Event-Management",
-      image: " ./img/project-img/event_management.jpg",
+       link: "https://event-management-v2.vercel.app",
+      github: "https://github.com/Velan03/Event-Management.v2",
+      image: "./img/project-img/event_management.jpg",
     },
     {
       title: "AI-HUMAN-FACE-EMOTION-DETECTION",
       description: "An advanced AI project that detects and analyzes human facial emotions in real-time using machine learning algorithms and computer vision techniques.",
       link: "#",
-      github: "#",
+      github: "https://github.com/Velan03/AI-HUMAN-FACE-EMOTION-DETECTION",
       image: "./img/project-img/AI-HUMAN-FACE-EMOTION-DETECTION.jpg",
     },
   ]
