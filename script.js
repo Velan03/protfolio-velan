@@ -693,21 +693,34 @@ function setupContactForm() {
   const contactForm = document.getElementById("contactForm");
   if (!contactForm) return;
 
+  // Create success message element (add this to your HTML or create dynamically)
+  const successMessage = document.createElement('div');
+  successMessage.className = 'alert alert-success mt-3 d-none';
+  successMessage.innerHTML = '<i class="fas fa-check-circle me-2"></i> Message sent successfully!';
+  contactForm.appendChild(successMessage);
+
   contactForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
+    event.preventDefault(); 
     
-    // Show loading state
+    // Get form elements
     const submitButton = this.querySelector('button[type="submit"]');
     const submitButtonSpan = submitButton.querySelector('span');
     const originalButtonText = submitButtonSpan.textContent;
+    const icon = submitButton.querySelector('i');
+    
+    // Set loading state
     submitButton.disabled = true;
     submitButtonSpan.textContent = 'Sending...';
-    const icon = submitButton.querySelector('i');
     icon.className = 'fas fa-spinner fa-spin';
     
-    try {
-      // Get form data
+    // Hide any previous messages
+    successMessage.classList.add('d-none');
+
+    try { 
+      // Add custom subject to form data
       const formData = new FormData(contactForm);
+      const name = formData.get('name') || 'Visitor';
+      formData.set('subject', `Form Portfolio - Message from ${name}`);
       
       // Submit to Web3Forms
       const response = await fetch(contactForm.action, {
@@ -717,21 +730,23 @@ function setupContactForm() {
       
       const result = await response.json();
       
-      if (response.ok && result.success) {
+      if (response.ok && result.success) { 
         // Success - reset form and show message
-        contactForm.reset();
+        contactForm.reset(); 
+        successMessage.classList.remove('d-none');
         
-        // Show success message (you might want to use a nicer alert/toast)
-        alert('Message sent successfully!');
-      } else {
-        // Handle error
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          successMessage.classList.add('d-none');
+        }, 5000);
+      } else { 
         throw new Error(result.message || 'Failed to send message');
       }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error: ' + error.message);
-    } finally {
-      // Always restore button state
+    } catch (error) { 
+      console.error('Form submission error:', error);
+      alert(`Error: ${error.message}`);
+    } finally { 
+      // Reset button state
       submitButton.disabled = false;
       submitButtonSpan.textContent = originalButtonText;
       icon.className = 'fa-regular fa-paper-plane';
