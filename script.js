@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     skills.forEach((skill, index) => {
       const col = document.createElement("div")
-      col.className = "col-md-6 col-lg-4"
+      col.className = "col-md-6 col-lg-4 mb-2"
       col.setAttribute("data-aos", "fade-up")
       col.setAttribute("data-aos-duration", "800")
       col.setAttribute("data-aos-delay", `${index * 100}`)
